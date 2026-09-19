@@ -1,9 +1,29 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mascot } from "page-mascot";
 
 const STORAGE_KEY = "mascotPosition";
 const DRAG_THRESHOLD = 6; // px di chuyển tối thiểu để tính là kéo, tránh nhầm với click "boop"
 const MASCOT_SIZE = 110;
+const SPEECH_DURATION_MS = 3200;
+const IDLE_SPEECH_INTERVAL_MS = 45000;
+
+const PHRASES = [
+  "Cố lên nha, đừng bỏ cuộc! 🔥",
+  "Hôm nay check-in chưa nè?",
+  "Streak đang chờ bạn đó!",
+  "Mỗi ngày một chút, thành công sẽ tới!",
+  "Bạn giỏi lắm, tiếp tục nhé!",
+  "Đừng để streak về 0 nha!",
+  "Never give up! 💪",
+  "Thói quen nhỏ, thay đổi lớn đó.",
+  "Ấn nút check-in đi nào!",
+  "Tớ luôn ở đây cổ vũ bạn!",
+  "Bá khí trên từng hạt bí",
+];
+
+function pickPhrase() {
+  return PHRASES[Math.floor(Math.random() * PHRASES.length)];
+}
 
 function loadPosition() {
   try {
@@ -22,11 +42,30 @@ function clamp(value, min, max) {
 }
 
 // Mascot kéo-thả được: giữ chuột/ngón tay và di chuyển để đổi vị trí, thả ra để
-// giữ nguyên đó. Bấm nhẹ không kéo vẫn giữ nguyên hiệu ứng "boop" gốc của package.
+// giữ nguyên đó. Bấm nhẹ không kéo vẫn giữ nguyên hiệu ứng "boop" gốc của package,
+// đồng thời hiện thêm một câu thoại ngẫu nhiên.
 export function DraggableMascot() {
   const [position, setPosition] = useState(loadPosition);
+  const [message, setMessage] = useState(null);
   const dragRef = useRef(null);
   const justDraggedRef = useRef(false);
+  const hideTimerRef = useRef(null);
+
+  function speak(text) {
+    setMessage(text);
+    clearTimeout(hideTimerRef.current);
+    hideTimerRef.current = setTimeout(() => setMessage(null), SPEECH_DURATION_MS);
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!dragRef.current) speak(pickPhrase());
+    }, IDLE_SPEECH_INTERVAL_MS);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(hideTimerRef.current);
+    };
+  }, []);
 
   function handlePointerDown(e) {
     dragRef.current = {
@@ -79,6 +118,10 @@ export function DraggableMascot() {
     }
   }
 
+  function handleClick() {
+    speak(pickPhrase());
+  }
+
   return (
     <div
       className="page-mascot-wrap"
@@ -88,7 +131,9 @@ export function DraggableMascot() {
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
       onClickCapture={handleClickCapture}
+      onClick={handleClick}
     >
+      {message && <div className="mascot-speech">{message}</div>}
       <Mascot
         directions="/mascots/skater-directions.webp"
         reactions="/mascots/skater-reactions.webp"

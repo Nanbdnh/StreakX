@@ -589,6 +589,45 @@ a.link-btn {
   cursor: grabbing;
 }
 
+.mascot-speech {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 10px;
+  max-width: 200px;
+  width: max-content;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.3);
+  animation: mascot-speech-pop 0.18s ease-out;
+  pointer-events: none;
+}
+
+.mascot-speech::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 18px;
+  border: 6px solid transparent;
+  border-top-color: var(--card-bg);
+}
+
+@keyframes mascot-speech-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 640px) {
   .page-mascot-wrap {
     transform: scale(0.8);
