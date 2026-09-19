@@ -4,13 +4,15 @@ const COOKIE_NAME = "habit_tracker_token";
 
 // Quyết định: token sống trong cookie httpOnly (không phải localStorage) để JS
 // phía client không đọc/ghi được -> giảm rủi ro XSS đánh cắp token.
-// Đổi lại phải cấu hình CORS credentials + SameSite đúng cách (xem index.js).
+// SameSite=Lax đủ dùng vì frontend proxy các request /api/* qua chính domain của nó
+// (xem frontend/vercel.json) -> với trình duyệt, mọi request luôn là same-site, không
+// cần SameSite=None (thứ hay bị trình duyệt chặn ở chế độ riêng tư/incognito).
 export function issueAuthCookie(res, token) {
   const isProd = process.env.NODE_ENV === "production";
   res.cookie(COOKIE_NAME, token, {
     httpOnly: true,
     secure: isProd, // bắt buộc true khi deploy (https), false khi dev localhost http
-    sameSite: isProd ? "none" : "lax", // "none" để cookie đi qua được giữa 2 domain FE/BE khác nhau
+    sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày, khớp JWT_EXPIRES_IN mặc định
     path: "/",
   });

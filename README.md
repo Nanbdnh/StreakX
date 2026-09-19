@@ -126,8 +126,11 @@ Có thể test bằng Postman/Thunder Client: gọi `register` hoặc `login` tr
 
 ### Frontend — Vercel
 1. Import repo trên Vercel, chọn thư mục gốc là `frontend`.
-2. Thêm biến môi trường `VITE_API_URL` = URL backend Render + `/api`.
-3. Sau khi deploy, quay lại Render cập nhật `FRONTEND_ORIGIN` = URL Vercel vừa có.
+2. Thêm biến môi trường `VITE_API_URL` = `/api` (đường dẫn tương đối, **không** phải URL đầy đủ của backend).
+3. Mở `frontend/vercel.json`, sửa URL backend trong rewrite `/api/(.*)` thành URL Render thật của bạn.
+4. Sau khi deploy, quay lại Render cập nhật `FRONTEND_ORIGIN` = URL Vercel vừa có.
+
+> **Vì sao `VITE_API_URL="/api"` chứ không phải URL backend đầy đủ?** `vercel.json` cấu hình rewrite để Vercel tự proxy mọi request `/api/*` sang backend Render. Nhờ vậy, với trình duyệt, mọi request luôn là same-origin (cùng domain `vercel.app`) — cookie đăng nhập không bị các trình duyệt chặn như cookie "bên thứ ba" (điều hay xảy ra ở chế độ ẩn danh/incognito khi FE và BE là 2 domain khác nhau).
 
 ## Quyết định kỹ thuật đáng chú ý
 

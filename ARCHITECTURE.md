@@ -44,6 +44,7 @@
 | Kiểm tra quyền sở hữu (`userId`) ở mọi route habit | Chặn user A thao tác dữ liệu của user B dù biết `id` |
 | Thứ tự habit lưu ở cột `order` (Int), cập nhật qua `POST /habits/reorder` trong 1 transaction | Kéo-thả ở FE chỉ cập nhật UI tạm thời rồi gọi 1 API duy nhất để lưu toàn bộ thứ tự, tránh N request riêng lẻ mỗi lần đổi vị trí |
 | Nhắc nhở dùng Notification API của trình duyệt (không phải push thật) | Không cần thêm hạ tầng service worker/VAPID key cho bản MVP; đánh đổi là chỉ nhắc được khi tab đang mở |
+| Vercel rewrite proxy `/api/*` sang Render thay vì FE gọi thẳng URL backend | Phát hiện lỗi thực tế: cookie đăng nhập bị trình duyệt chặn ở chế độ riêng tư (incognito/InPrivate) vì FE (`vercel.app`) và BE (`onrender.com`) là 2 domain khác nhau -> cookie bị coi là "bên thứ ba". Proxy khiến mọi request từ trình duyệt luôn same-origin, cookie thành first-party, không bị chặn nữa. Đánh đổi: phải hard-code URL backend trong `vercel.json` thay vì biến môi trường |
 
 ## Ghi chú cho người review
 
