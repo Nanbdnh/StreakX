@@ -10,6 +10,13 @@ function publicUser(user) {
   return { id: user.id, email: user.email, name: user.name };
 }
 
+// Habit gợi ý sẵn cho tài khoản mới, để dashboard không trống trơn ngay sau khi đăng ký.
+const STARTER_HABITS = [
+  { name: "Tập thể dục 60 phút", icon: "🔥", color: "#d97706" },
+  { name: "Đọc sách 30 phút", icon: "📚", color: "#dc2626" },
+  { name: "Xem youtube Nhi Le", icon: "🧠", color: "#059669" },
+];
+
 router.post("/register", async (req, res) => {
   const { email, password, name } = req.body ?? {};
   if (!email || !password || !name) {
@@ -27,6 +34,14 @@ router.post("/register", async (req, res) => {
   const passwordHash = await bcrypt.hash(password, 10);
   const user = await prisma.user.create({
     data: { email, passwordHash, name },
+  });
+
+  await prisma.habit.createMany({
+    data: STARTER_HABITS.map((habit, index) => ({
+      ...habit,
+      order: index,
+      userId: user.id,
+    })),
   });
 
   const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
