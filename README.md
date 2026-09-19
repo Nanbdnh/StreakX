@@ -2,6 +2,13 @@
 
 Ứng dụng theo dõi thói quen hằng ngày: đăng ký/đăng nhập, tạo habit, check-in mỗi ngày, xem streak (số ngày liên tiếp) và dashboard cá nhân.
 
+**Demo trực tiếp:**
+- Frontend: https://streak-x-cyan.vercel.app
+- Backend API: https://streakx.onrender.com/api
+- Repo: https://github.com/Nanbdnh/StreakX
+
+> Backend chạy trên gói free của Render nên sẽ "ngủ" sau vài phút không có traffic — request đầu tiên có thể mất ~30-50s để khởi động lại.
+
 ## Tech stack
 
 | Lớp | Công nghệ |
