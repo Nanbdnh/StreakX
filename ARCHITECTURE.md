@@ -42,6 +42,8 @@
 | JWT lưu trong cookie `httpOnly`, không dùng `localStorage` | Giảm rủi ro XSS đọc trộm token; đánh đổi là phải cấu hình CORS `credentials` + `SameSite` cẩn thận khi FE/BE khác domain |
 | Streak tính runtime từ danh sách CheckIn (không lưu sẵn) | Dữ liệu luôn nhất quán, không sợ lệch khi xoá/sửa check-in; chấp nhận đánh đổi tốn CPU hơn một chút cho dataset nhỏ của bài tập này |
 | Kiểm tra quyền sở hữu (`userId`) ở mọi route habit | Chặn user A thao tác dữ liệu của user B dù biết `id` |
+| Thứ tự habit lưu ở cột `order` (Int), cập nhật qua `POST /habits/reorder` trong 1 transaction | Kéo-thả ở FE chỉ cập nhật UI tạm thời rồi gọi 1 API duy nhất để lưu toàn bộ thứ tự, tránh N request riêng lẻ mỗi lần đổi vị trí |
+| Nhắc nhở dùng Notification API của trình duyệt (không phải push thật) | Không cần thêm hạ tầng service worker/VAPID key cho bản MVP; đánh đổi là chỉ nhắc được khi tab đang mở |
 
 ## Ghi chú cho người review
 

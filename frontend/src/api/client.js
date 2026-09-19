@@ -30,4 +30,6 @@ export const api = {
   deleteHabit: (id) => request(`/habits/${id}`, { method: "DELETE" }),
   toggleCheckIn: (id) => request(`/habits/${id}/checkin`, { method: "POST" }),
   habitCheckIns: (id) => request(`/habits/${id}/checkins`),
+  reorderHabits: (orderedIds) =>
+    request("/habits/reorder", { method: "POST", body: JSON.stringify({ orderedIds }) }),
 };

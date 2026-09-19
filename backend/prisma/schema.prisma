@@ -22,11 +22,14 @@ model User {
 }
 
 model Habit {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  color       String   @default("#d97706")
-  createdAt   DateTime @default(now())
+  id           String   @id @default(uuid())
+  name         String
+  description  String?
+  color        String   @default("#d97706")
+  icon         String   @default("🔥")
+  order        Int      @default(0)
+  reminderTime String? // "HH:MM" theo giờ local trình duyệt, null = không nhắc
+  createdAt    DateTime @default(now())
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -21,6 +21,18 @@
 
 Chi tiết sơ đồ 3 lớp và các điểm kết nối: xem [ARCHITECTURE.md](./ARCHITECTURE.md).
 
+## Tính năng
+
+- Đăng ký/đăng nhập (JWT cookie), CRUD habit, check-in/bỏ check-in theo ngày
+- Streak hiện tại + kỷ lục, tính runtime từ lịch sử check-in
+- Sửa tên/mô tả/icon/màu/giờ nhắc của từng habit
+- Heatmap 12 tuần gần nhất cho mỗi habit
+- Kéo-thả sắp xếp lại thứ tự habit (lưu vào DB qua `POST /habits/reorder`)
+- Trang Thống kê: tỷ lệ hoàn thành theo tuần/30 ngày cho từng habit
+- Dark mode (lưu lựa chọn ở localStorage của trình duyệt)
+- Nhắc nhở bằng Notification API của trình duyệt khi đến giờ đã đặt — **chỉ hoạt động khi tab đang mở**, không phải push notification thật (cần thêm service worker + hạ tầng gửi mới nhắc được khi đóng tab)
+- Mascot trang trí góc màn hình (package [`page-mascot`](https://koboyo.com/page-mascot))
+
 ## Vì sao chọn stack này
 
 > Phần này viết tay bằng lời của tác giả dự án (không paste từ AI) — nêu rõ tại sao chọn React+Express+PostgreSQL thay vì các phương án khác, đã đánh đổi những gì. Vài câu hỏi gợi ý để trả lời:
