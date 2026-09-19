@@ -7,6 +7,10 @@
   --accent: #e15a8c;
   --accent-dark: #c23f70;
   --accent-bg: #fadbe8;
+  --card-bg-glass: rgba(255, 248, 251, 0.72);
+  --blob-1: #f6a8c9;
+  --blob-2: #f7d1a8;
+  --blob-3: #c9a8f0;
   --danger: #dc2626;
   --danger-bg: #fef2f2;
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
@@ -22,6 +26,10 @@
   --accent: #f082ab;
   --accent-dark: #f7aac7;
   --accent-bg: #522c40;
+  --card-bg-glass: rgba(52, 32, 44, 0.72);
+  --blob-1: #7a3a58;
+  --blob-2: #6a4a34;
+  --blob-3: #4a3a6a;
   --danger: #f87171;
   --danger-bg: #3a1f1f;
   color-scheme: dark;
@@ -75,23 +83,83 @@ input {
 
 /* --- Auth pages --- */
 .auth-page {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 20%, var(--accent-bg), var(--bg) 60%);
+}
+
+.auth-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.auth-blob--1 {
+  width: 340px;
+  height: 340px;
+  top: -80px;
+  left: -80px;
+  background: var(--blob-1);
+}
+
+.auth-blob--2 {
+  width: 280px;
+  height: 280px;
+  bottom: -60px;
+  right: -60px;
+  background: var(--blob-2);
+}
+
+.auth-blob--3 {
+  width: 220px;
+  height: 220px;
+  bottom: 10%;
+  left: 8%;
+  background: var(--blob-3);
+}
+
+.auth-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-tagline {
+  margin: 0;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--accent-dark);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 380px;
-  background: var(--card-bg);
+  background: var(--card-bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.25);
 }
 
 .auth-card h1 {
@@ -112,6 +180,8 @@ input {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 15px;
+  background: var(--card-bg);
+  color: var(--text);
 }
 
 .auth-card button[type="submit"] {

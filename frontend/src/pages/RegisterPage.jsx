@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { AuthLayout } from "../components/AuthLayout";
 
 export function RegisterPage() {
   const { register } = useAuth();
@@ -26,7 +27,7 @@ export function RegisterPage() {
   }
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <form className="auth-card" onSubmit={handleSubmit}>
         <h1>Đăng ký</h1>
         {error && <p className="form-error">{error}</p>}
@@ -55,6 +56,6 @@ export function RegisterPage() {
           Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
         </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 }
