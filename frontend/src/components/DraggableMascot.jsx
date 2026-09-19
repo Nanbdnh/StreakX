@@ -8,17 +8,11 @@ const SPEECH_DURATION_MS = 3200;
 const IDLE_SPEECH_INTERVAL_MS = 45000;
 
 const PHRASES = [
-  "Cố lên nha, đừng bỏ cuộc! 🔥",
-  "Hôm nay check-in chưa nè?",
-  "Streak đang chờ bạn đó!",
-  "Mỗi ngày một chút, thành công sẽ tới!",
-  "Bạn giỏi lắm, tiếp tục nhé!",
-  "Đừng để streak về 0 nha!",
-  "Never give up! 💪",
-  "Thói quen nhỏ, thay đổi lớn đó.",
-  "Ấn nút check-in đi nào!",
-  "Tớ luôn ở đây cổ vũ bạn!",
   "Bá khí trên từng hạt bí",
+  "Cố lên bạn tôi ơi!",
+  "Miễn dịch với lười biếng",
+  "Hơn cả khu tự trị!",
+  "Thuyệt hôm bà",
 ];
 
 function pickPhrase() {
