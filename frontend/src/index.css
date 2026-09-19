@@ -1,11 +1,12 @@
 :root {
-  --bg: #faf7f2;
+  --bg: #fdf3f7;
   --card-bg: #ffffff;
   --text: #2b2620;
-  --text-muted: #7a7266;
-  --border: #e7e0d4;
-  --accent: #d97706;
-  --accent-dark: #b45309;
+  --text-muted: #8a7480;
+  --border: #f3d9e6;
+  --accent: #db2777;
+  --accent-dark: #be185d;
+  --accent-bg: #fce7f3;
   --danger: #dc2626;
   --danger-bg: #fef2f2;
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
@@ -13,13 +14,14 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #1b1712;
-  --card-bg: #26211b;
-  --text: #f1ede6;
-  --text-muted: #a89c8a;
-  --border: #3a3226;
-  --accent: #e8912b;
-  --accent-dark: #f3a94a;
+  --bg: #1c1418;
+  --card-bg: #2a1e24;
+  --text: #f6ecf0;
+  --text-muted: #b299a3;
+  --border: #402a34;
+  --accent: #f472b6;
+  --accent-dark: #f9a8d4;
+  --accent-bg: #4a2536;
   --danger: #f87171;
   --danger-bg: #3a1f1f;
   color-scheme: dark;
@@ -358,7 +360,7 @@ a.link-btn {
 
 .icon-swatch--active {
   border-color: var(--accent);
-  background: var(--danger-bg);
+  background: var(--accent-bg);
   outline: 2px solid var(--accent);
 }
 
