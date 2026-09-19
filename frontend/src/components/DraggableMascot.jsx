@@ -5,7 +5,8 @@ const STORAGE_KEY = "mascotPosition";
 const DRAG_THRESHOLD = 6; // px di chuyển tối thiểu để tính là kéo, tránh nhầm với click "boop"
 const MASCOT_SIZE = 110;
 const SPEECH_DURATION_MS = 3200;
-const IDLE_SPEECH_INTERVAL_MS = 45000;
+const IDLE_SPEECH_INTERVAL_MS = 15000;
+const FIRST_SPEECH_DELAY_MS = 2000;
 
 const PHRASES = [
   "Bá khí trên từng hạt bí",
@@ -52,10 +53,17 @@ export function DraggableMascot() {
   }
 
   useEffect(() => {
+    // Tự nói ngay sau vài giây khi vừa vào trang, không cần đợi người dùng bấm.
+    const firstTimer = setTimeout(() => {
+      if (!dragRef.current) speak(pickPhrase());
+    }, FIRST_SPEECH_DELAY_MS);
+
     const interval = setInterval(() => {
       if (!dragRef.current) speak(pickPhrase());
     }, IDLE_SPEECH_INTERVAL_MS);
+
     return () => {
+      clearTimeout(firstTimer);
       clearInterval(interval);
       clearTimeout(hideTimerRef.current);
     };
