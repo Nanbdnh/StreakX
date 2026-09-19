@@ -1,0 +1,49 @@
+// Schema quyết định: 3 bảng - User, Habit, CheckIn.
+// CheckIn tách riêng khỏi Habit (thay vì nhét mảng ngày vào Habit) để:
+// - Không giới hạn số lần check-in, dễ truy vấn theo khoảng ngày.
+// - Ràng buộc unique (habitId, date) đảm bảo mỗi habit chỉ check-in 1 lần/ngày.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+
+  habits Habit[]
+}
+
+model Habit {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  color       String   @default("#d97706")
+  createdAt   DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  checkIns CheckIn[]
+
+  @@index([userId])
+}
+
+model CheckIn {
+  id        String   @id @default(uuid())
+  date      DateTime // lưu dạng ngày (00:00:00 UTC) để so sánh dễ, không lưu giờ phút giây
+  createdAt DateTime @default(now())
+
+  habitId String
+  habit   Habit  @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@unique([habitId, date])
+  @@index([habitId])
+}
