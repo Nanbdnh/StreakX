@@ -509,16 +509,18 @@ a.link-btn {
 
 .page-mascot-wrap {
   position: fixed;
-  right: 20px;
-  bottom: 16px;
   z-index: 40;
   pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.page-mascot-wrap:active {
+  cursor: grabbing;
 }
 
 @media (max-width: 640px) {
   .page-mascot-wrap {
-    right: 10px;
-    bottom: 10px;
     transform: scale(0.8);
     transform-origin: bottom right;
   }

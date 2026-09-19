@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Mascot } from "page-mascot";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { DraggableMascot } from "./components/DraggableMascot";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { DashboardPage } from "./pages/DashboardPage";
@@ -33,14 +33,7 @@ export default function App() {
             }
           />
         </Routes>
-        <div className="page-mascot-wrap">
-          <Mascot
-            directions="/mascots/skater-directions.webp"
-            reactions="/mascots/skater-reactions.webp"
-            size={110}
-            label="mascot cổ vũ giữ streak"
-          />
-        </div>
+        <DraggableMascot />
       </AuthProvider>
     </BrowserRouter>
   );
